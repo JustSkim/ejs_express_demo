@@ -14,11 +14,15 @@ app.set("view engine","html")
 app.engine()，app.set()两个方法都要安排上
 */
 
+//开启模板缓存
+app.set("view cache",true);
+
 app.get("/", (req, res) => {
     // 创建用于渲染的数据
     var data = {
         siteName: "张培跃",
-        siteUrl: "http://www.zhangpeiyue.com"
+        siteUrl: "http://www.zhangpeiyue.com",
+        nowTime: getNowTime()
     }
     /*
     // 创建模板内容
@@ -38,6 +42,16 @@ app.get("/", (req, res) => {
     res.render("./",data)
     //render设置的地址为"./",默认使用的文件为views文件夹下index.ejs文件
 
+    function getNowTime(){
+        var nowTime = new Date();
+        var timeStr = nowTime.getFullYear() + "-" +
+            (nowTime.getMonth() + 1).toString().padStart(2, "0") + "-" +
+            nowTime.getDate().toString().padStart(2, "0") + " " +
+            nowTime.getHours().toString().padStart(2, "0") + ":" +
+            nowTime.getMinutes().toString().padStart(2, "0") + ":" +
+            nowTime.getSeconds().toString().padStart(2, "0");
+        return timeStr;
+    }
 })
 app.listen(8080, function () {
     console.log("开启服务成功！")
