@@ -2,8 +2,17 @@ const express = require("express");
 const ejs = require("ejs");
 const app = express();
 
-app.set("views","html");
+//设置扩展名为html
+//app.engine('.html',require('ejs').__express)
+
+//app.set("views","html");
 //express默认的模板文件夹为views，我们可以通过该方法将模板文件夹设置为html
+
+app.engine('.html',require('ejs').renderFile)
+app.set("view engine","html")
+/*
+app.engine()，app.set()两个方法都要安排上
+*/
 
 app.get("/", (req, res) => {
     // 创建用于渲染的数据
@@ -23,8 +32,12 @@ app.get("/", (req, res) => {
     res.send(html);
     上面是将模板写在js脚本中的写法，下面我们用外部引入模板的方式
     */
+    
     // 将数据在浏览器进行展现
-    res.render("one.ejs",data)
+    //res.render("one.ejs",data)
+    res.render("./",data)
+    //render设置的地址为"./",默认使用的文件为views文件夹下index.ejs文件
+
 })
 app.listen(8080, function () {
     console.log("开启服务成功！")
