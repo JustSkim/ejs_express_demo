@@ -1,6 +1,10 @@
 const express = require("express");
 const ejs = require("ejs");
 const app = express();
+
+app.set("views","html");
+//express默认的模板文件夹为views，我们可以通过该方法将模板文件夹设置为html
+
 app.get("/", (req, res) => {
     // 创建用于渲染的数据
     var data = {
